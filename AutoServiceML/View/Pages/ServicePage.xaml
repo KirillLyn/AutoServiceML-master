@@ -1,0 +1,51 @@
+﻿<Page x:Class="AutoServiceML.View.Pages.ServicePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutoServiceML.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ServicePage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="2" Name="LViewServices">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="{StaticResource AccentColor}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding ServicePhoto.MainImage}"></Image>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Style="{StaticResource BlockCommon}" Width="auto" Text="{Binding Title}" HorizontalAlignment="Left"/>
+                                <StackPanel>
+                                    <TextBlock Width="auto" Style="{StaticResource BlockCommon}" Text="{Binding Cost,StringFormat=N2}" Visibility="{Binding DiscountVisibility}" TextDecorations="Strikethourgh"/>
+                                    <TextBlock Width="auto" Style="{StaticResource BlockCommon}" Text="{Binding TotalCost}"/>
+                                </StackPanel>
+                                <TextBlock Width="auto" Style="{StaticResource BlockCommon}" FontSize="12" Text="{Binding DiscountText}" Visibility="{Binding DiscountVisibility}" HorizontalAlignment="Left"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Редактировать" Name="BtnEdit" Click="BtnEditClick"></Button>
+                                    <Button Content="Удалить" Name="BtnDelete" Click="BtnDeleteClick"></Button> 
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Grid.Row="3" HorizontalAlignment="Right"
+                Name="BtnAddServices"  Click="BtnAddServicesClick"
+                Content="Добавить услугу"></Button>
+    </Grid>
+</Page>
