@@ -46,18 +46,30 @@ namespace AutoServiceML.Model
         {
             get
             {
-                string[] vs = DurationInSeconds.Split(new char[] { ' ' });
-                if (vs[1] == "мин")
+                string[] vs = DurationInSeconds.Trim().Split();
+                int minut;
+                if (vs[1] == "мин.")
                 {
-
-                }
-                if (Discount == 0 || Discount == null)
-                {
-                    return $"{Cost:N2} рублей за {Convert.ToInt32(vs[0]) / 60} минут";
+                    minut = Convert.ToInt32(vs[0]);
                 }
                 else
                 {
-                    return $"{CostWithDiscount:N2} рублей за {Convert.ToInt32(vs[0]) / 60} минут";
+                    if (vs[1] == "час.")
+                    {
+                        minut = Convert.ToInt32(vs[0]) * 60;
+                    }
+                    else
+                    {
+                        minut = Convert.ToInt32(vs[0]) * 1;
+                    }
+                }
+                if (Discount == 0 || Discount == null)
+                {
+                    return $"{Cost:N2} рублей за {minut / 60} минут";
+                }
+                else
+                {
+                    return $"{CostWithDiscount:N2} рублей за {minut / 60} минут";
                 }
             }
         }

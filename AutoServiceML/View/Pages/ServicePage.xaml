@@ -15,11 +15,31 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-
-        <ListView Grid.Row="2" Name="LViewServices">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <ComboBox Margin="5" Width="150" Name="ComboSortBy" SelectionChanged="ComboSortBySelectionChanged">
+                <ComboBoxItem Content="По возрастанию цены"/>
+                <ComboBoxItem Content="По убыванию цены"/>
+            </ComboBox>
+            <ComboBox Margin="5" Width="150" Name="ComboDiscount" SelectionChanged="ComboDiscountSelectionChanged">
+                <ComboBoxItem Content="Все"/>
+                <ComboBoxItem Content="От 0 до 5%"/>
+                <ComboBoxItem Content="От 5 до 15%"/>
+                <ComboBoxItem Content="От 15 до 30%"/>
+                <ComboBoxItem Content="От 30 до 70%"/>
+                <ComboBoxItem Content="От 70 до 100%"/>
+            </ComboBox>
+            <TextBox Name="TBoxSearch" Width="150" Margin="5" TextChanged="TBoxSearchTextChanged"/>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Style="{StaticResource BlockCommon}" Width="auto" FontWeight="Bold" Name="BlockRecords"/>
+        <ListView Grid.Row="2" Name="LViewServices" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="{StaticResource AccentColor}">
+                    <Border BorderBrush="{StaticResource AccentColor}" CornerRadius="15" Padding="5" Background="{Binding BackColor}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
@@ -27,9 +47,9 @@
                             </Grid.ColumnDefinitions>
                             <Image Source="{Binding ServicePhoto.MainImage}"></Image>
                             <StackPanel Grid.Column="1">
-                                <TextBlock Style="{StaticResource BlockCommon}" Width="auto" Text="{Binding Title}" HorizontalAlignment="Left"/>
+                                <TextBlock Style="{StaticResource BlockCommon}" Width="auto" Text="{Binding Title}" HorizontalAlignment="Left" FontSize="12" FontWeight="DemiBold"/>
                                 <StackPanel>
-                                    <TextBlock Width="auto" Style="{StaticResource BlockCommon}" Text="{Binding Cost,StringFormat=N2}" Visibility="{Binding DiscountVisibility}" TextDecorations="Strikethourgh"/>
+                                    <TextBlock Width="auto" Style="{StaticResource BlockCommon}" Text="{Binding Cost,StringFormat=N2}" Visibility="{Binding DiscountVisibility}" TextDecorations="Strikethrough"/>
                                     <TextBlock Width="auto" Style="{StaticResource BlockCommon}" Text="{Binding TotalCost}"/>
                                 </StackPanel>
                                 <TextBlock Width="auto" Style="{StaticResource BlockCommon}" FontSize="12" Text="{Binding DiscountText}" Visibility="{Binding DiscountVisibility}" HorizontalAlignment="Left"/>
