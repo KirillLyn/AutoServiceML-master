@@ -41,7 +41,7 @@ namespace AutoServiceML.View.Pages
 
         private void BtnEditClick(object sender, RoutedEventArgs e)
         {
-            FrameMain.Navigate(new AddEditServicePage());
+            NavigationService.Navigate(new AddEditServicePage());
         }
 
         private void BtnDeleteClick(object sender, RoutedEventArgs e)
